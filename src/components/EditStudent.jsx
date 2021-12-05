@@ -25,41 +25,25 @@ const EditStudent = () => {
     const [ student, setStudent ] = useState(enteredValues);
     const { name, rollNumber, cgpa, batch, degreeStatus } = student;
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id } = useParams(); //get id from url
+
+    const getStudentData = async () => {
+        const response = await getStudents(id);
+        // data is available on data property of response
+        setStudent(response.data.student); 
+    }
 
     useEffect(() => {
         getStudentData();
     }, [])
 
-    const getStudentData = async () => {
-        // const reponse = await getStudentData(id);
-        const students = [
-            {
-                "id": 1,
-                "name": "Danish Raza",
-                "rollNumber": "17B-122-SE",
-                "cgpa": "3.67",
-                "batch": "2017",
-                "degreeStatus": "Complete"
-            },
-            {
-                "id": 2,
-                "name": "ABCD",
-                "rollNumber": "20211200",
-                "cgpa": "3.00",
-                "batch": "2017",
-                "degreeStatus": "Complete"
-            }
-        ]
-        setStudent(students[0]);
-    }
-
     const handleChange = (e) => {
         setStudent({ ...student, [e.target.name]: e.target.value })
     }
 
-    const handleButtonClick = () => {
+    const handleEditButtonClick = async () => {
         navigate('/');
+        await editStudent(student, id)
     }
 
     return (
@@ -85,7 +69,7 @@ const EditStudent = () => {
                 <InputLabel>Degree Status</InputLabel>
                 <Input onChange={e => handleChange(e)} name="degreeStatus" value={degreeStatus}/>
             </FormControl>
-            <Button variant="contained" onClick={handleButtonClick} color="primary">Save</Button>
+            <Button variant="contained" onClick={handleEditButtonClick} color="primary">Save</Button>
         </FormGroup>
     )
 }

@@ -6,7 +6,7 @@ import { getStudents, deleteStudent } from '../API/API';
 const useStyle = makeStyles({
     grid: {
         width: '90%',
-        margin: '35px 0 0 55px' //up right bottom left
+        margin: '30px 0 0 55px' //up right bottom left
     },
     thead: {
         '& > *': {
@@ -21,8 +21,8 @@ const useStyle = makeStyles({
         }
     },
     heading: {
-        marginLeft: 450, 
-        marginTop: 10,
+        marginLeft: 475, 
+        marginTop: 20,
         fontWeight: "bold"
     }
 })
@@ -30,24 +30,6 @@ const useStyle = makeStyles({
 
 const GetStudents = () => {
     const cssClasses = useStyle();
-    const studentInfo = [
-            {
-                "id": 1,
-                "name": "Danish Raza",
-                "rollNumber": "17B-122-SE",
-                "cgpa": "3.67",
-                "batch": "2017",
-                "degreeStatus": "Complete"
-            },
-            {
-                "id": 2,
-                "name": "ABCD",
-                "rollNumber": "20211200",
-                "cgpa": "3.00",
-                "batch": "2017",
-                "degreeStatus": "Complete"
-            }
-        ]
 
     const [ students, setStudents ] = useState([])
 
@@ -56,12 +38,13 @@ const GetStudents = () => {
     }, [])
 
     const getStudentData = async () => {
-        // const response = await getStudents();
-        // setStudents(response.data);
+        const response = await getStudents();
+        setStudents([...response.data.students]);
     }
 
     const deleteStudentData = async (id) => {
-        // return await deleteStudent(id);
+        await deleteStudent(id);
+        getStudentData();
     }
 
     return (
@@ -81,19 +64,19 @@ const GetStudents = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        studentInfo.map((std, index) => (
+                        students.map((std, index) => (
                             <TableRow className={cssClasses.trow} key={index}>
-                                <TableCell>{std.id}</TableCell>
+                                <TableCell>{index + 1}</TableCell>
                                 <TableCell>{std.name}</TableCell>
                                 <TableCell>{std.rollNumber}</TableCell>
-                                <TableCell>{std.gpa}</TableCell>
+                                <TableCell>{std.cgpa}</TableCell>
                                 <TableCell>{std.batch}</TableCell>
                                 <TableCell>{std.degreeStatus}</TableCell>
                                 <TableCell>
-                                    <Link to={`/edit/${std.id}`}>
+                                    <Link to={`/edit/${std._id}`}>
                                         <Button variant="contained" color="primary" style={{marginRight: 10}}>Edit</Button>
                                     </Link>
-                                    <Button variant="contained" color="secondary" onClick={() => deleteStudentData(std.id)}>Delete</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => deleteStudentData(std._id)}>Delete</Button>
                                 </TableCell>
                             </TableRow>
                         ))

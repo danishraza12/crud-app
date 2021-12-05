@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:3000/users';
+const url = 'http://localhost:8000/student';
 
 export const getStudents = async (id) => {
   id = id || '';
@@ -8,7 +8,7 @@ export const getStudents = async (id) => {
 };
 
 export const addStudent = async (student) => {
-  return await axios.post(url, student);
+  return await axios.post(`${url}/add`, student);
 };
 
 export const editStudent = async (student, id) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, makeStyles } from '@material-ui/core';
+import { AppBar, Toolbar, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
@@ -13,6 +13,9 @@ const useStyles = makeStyles({
         color: '#FFFFFF',
         border: 'none',
         cursor: 'pointer',
+    },
+    footer: {
+        marginLeft: 850,
     }
 })
 
@@ -28,6 +31,7 @@ const Navbar = () => {
                 <Link to="/add">
                     <button className={cssClasses.button}>Add Student</button>
                 </Link>
+            <Typography variant="h6" className={cssClasses.footer}>By Danish Raza</Typography>
             </Toolbar>
         </AppBar>
     )

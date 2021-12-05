@@ -30,8 +30,9 @@ const AddStudent = () => {
         setStudent({ ...student, [e.target.name]: e.target.value })
     }
 
-    const handleButtonClick = () => {
+    const handleButtonClick = async () => {
         navigate('/');
+        await addStudent(student);
     }
 
     return (
