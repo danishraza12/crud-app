@@ -30,16 +30,15 @@ const useStyle = makeStyles({
 
 const GetStudents = () => {
     const cssClasses = useStyle();
-
     const [ students, setStudents ] = useState([])
 
     useEffect(() => {
         getStudentData();
-    }, [])
+    }, [students])
 
     const getStudentData = async () => {
         const response = await getStudents();
-        setStudents([...response.data.students]);
+        setStudents(response.data.students);
     }
 
     const deleteStudentData = async (id) => {
