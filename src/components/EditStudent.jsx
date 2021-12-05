@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormGroup, FormControl, InputLabel, Input, makeStyles, Button, Typography } from '@material-ui/core'
-import { addStudent } from '../API/API';
-import { useNavigate } from 'react-router-dom';
+import { getStudents, editStudent } from '../API/API';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles({
     container: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 })
 
-const AddStudent = () => {
+const EditStudent = () => {
     const cssClasses = useStyles();
     const enteredValues = {
         name: '',
@@ -25,6 +25,34 @@ const AddStudent = () => {
     const [ student, setStudent ] = useState(enteredValues);
     const { name, rollNumber, cgpa, batch, degreeStatus } = student;
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    useEffect(() => {
+        getStudentData();
+    }, [])
+
+    const getStudentData = async () => {
+        // const reponse = await getStudentData(id);
+        const students = [
+            {
+                "id": 1,
+                "name": "Danish Raza",
+                "rollNumber": "17B-122-SE",
+                "cgpa": "3.67",
+                "batch": "2017",
+                "degreeStatus": "Complete"
+            },
+            {
+                "id": 2,
+                "name": "ABCD",
+                "rollNumber": "20211200",
+                "cgpa": "3.00",
+                "batch": "2017",
+                "degreeStatus": "Complete"
+            }
+        ]
+        setStudent(students[0]);
+    }
 
     const handleChange = (e) => {
         setStudent({ ...student, [e.target.name]: e.target.value })
@@ -36,7 +64,7 @@ const AddStudent = () => {
 
     return (
         <FormGroup className={cssClasses.container}>
-            <Typography variant="h4">Add Student</Typography>
+            <Typography variant="h4">Edit Student</Typography>
             <FormControl>
                 <InputLabel>Name</InputLabel>
                 <Input onChange={e => handleChange(e)} name="name" value={name}/>
@@ -57,9 +85,9 @@ const AddStudent = () => {
                 <InputLabel>Degree Status</InputLabel>
                 <Input onChange={e => handleChange(e)} name="degreeStatus" value={degreeStatus}/>
             </FormControl>
-            <Button variant="contained" onClick={handleButtonClick} color="primary">Add Student</Button>
+            <Button variant="contained" onClick={handleButtonClick} color="primary">Save</Button>
         </FormGroup>
     )
 }
 
-export default AddStudent;
+export default EditStudent;
