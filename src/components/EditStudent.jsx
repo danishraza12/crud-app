@@ -35,7 +35,7 @@ const EditStudent = () => {
 
     useEffect(() => {
         getStudentData();
-    }, [])
+    }, )
 
     const handleChange = (e) => {
         setStudent({ ...student, [e.target.name]: e.target.value })
