@@ -35,7 +35,8 @@ const EditStudent = () => {
 
     useEffect(() => {
         getStudentData();
-    }, )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const handleChange = (e) => {
         setStudent({ ...student, [e.target.name]: e.target.value })
