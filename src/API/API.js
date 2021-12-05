@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const url = 'http://localhost:8000/student';
+// const url = 'http://localhost:8000/student';
+const url = 'https://crud-app-apis.herokuapp.com/student';
 
 export const getStudents = async (id) => {
   id = id || '';
